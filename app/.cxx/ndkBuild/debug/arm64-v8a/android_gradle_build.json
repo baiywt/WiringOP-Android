@@ -1,0 +1,45 @@
+{
+  "buildFiles": [
+    "/home/csy/share/test1/WiringOP/app/src/main/jni/Android.mk"
+  ],
+  "cleanCommands": [
+    "/home/csy/Android/Sdk/ndk/16.1.4479499/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/home/csy/share/test1/WiringOP/app/src/main/jni/Android.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/lib clean"
+  ],
+  "buildTargetsCommand": "/home/csy/Android/Sdk/ndk/16.1.4479499/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/home/csy/share/test1/WiringOP/app/src/main/jni/Android.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/lib {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "WiringOP-debug-arm64-v8a": {
+      "buildCommand": "/home/csy/Android/Sdk/ndk/16.1.4479499/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/home/csy/share/test1/WiringOP/app/src/main/jni/Android.mk APP_ABI\u003darm64-v8a NDK_ALL_ABIS\u003darm64-v8a NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-21 NDK_OUT\u003d/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/lib /home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libWiringOP.so",
+      "toolchain": "toolchain-arm64-v8a",
+      "abi": "arm64-v8a",
+      "artifactName": "WiringOP",
+      "files": [
+        {
+          "src": "/home/csy/share/test1/WiringOP/app/src/main/jni/com_example_wiringop_GPIOControl.c",
+          "flags": "-gcc-toolchain /home/csy/Android/Sdk/ndk/16.1.4479499/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 -target aarch64-none-linux-android -ffunction-sections -funwind-tables -fstack-protector-strong -fpic -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -g -O0 -UNDEBUG -fno-limit-debug-info -Ilibnativehelper/include_jni -I/home/csy/share/test1/WiringOP/app/src/main/jni -DANDROID -Wno-unused-parameter -Wno-uninitialized -D__ANDROID_API__\u003d21 -Wa,--noexecstack -Wformat -Werror\u003dformat-security --sysroot /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot -isystem /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot/usr/include/aarch64-linux-android"
+        },
+        {
+          "src": "/home/csy/share/test1/WiringOP/app/src/main/jni/com_example_wiringop_I2cControl.c",
+          "flags": "-gcc-toolchain /home/csy/Android/Sdk/ndk/16.1.4479499/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 -target aarch64-none-linux-android -ffunction-sections -funwind-tables -fstack-protector-strong -fpic -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -g -O0 -UNDEBUG -fno-limit-debug-info -Ilibnativehelper/include_jni -I/home/csy/share/test1/WiringOP/app/src/main/jni -DANDROID -Wno-unused-parameter -Wno-uninitialized -D__ANDROID_API__\u003d21 -Wa,--noexecstack -Wformat -Werror\u003dformat-security --sysroot /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot -isystem /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot/usr/include/aarch64-linux-android"
+        },
+        {
+          "src": "/home/csy/share/test1/WiringOP/app/src/main/jni/com_example_wiringop_SerialControl.c",
+          "flags": "-gcc-toolchain /home/csy/Android/Sdk/ndk/16.1.4479499/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 -target aarch64-none-linux-android -ffunction-sections -funwind-tables -fstack-protector-strong -fpic -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -g -O0 -UNDEBUG -fno-limit-debug-info -Ilibnativehelper/include_jni -I/home/csy/share/test1/WiringOP/app/src/main/jni -DANDROID -Wno-unused-parameter -Wno-uninitialized -D__ANDROID_API__\u003d21 -Wa,--noexecstack -Wformat -Werror\u003dformat-security --sysroot /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot -isystem /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot/usr/include/aarch64-linux-android"
+        },
+        {
+          "src": "/home/csy/share/test1/WiringOP/app/src/main/jni/com_example_wiringop_SpiControl.c",
+          "flags": "-gcc-toolchain /home/csy/Android/Sdk/ndk/16.1.4479499/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 -target aarch64-none-linux-android -ffunction-sections -funwind-tables -fstack-protector-strong -fpic -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -g -O0 -UNDEBUG -fno-limit-debug-info -Ilibnativehelper/include_jni -I/home/csy/share/test1/WiringOP/app/src/main/jni -DANDROID -Wno-unused-parameter -Wno-uninitialized -D__ANDROID_API__\u003d21 -Wa,--noexecstack -Wformat -Werror\u003dformat-security --sysroot /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot -isystem /home/csy/Android/Sdk/ndk/16.1.4479499/sysroot/usr/include/aarch64-linux-android"
+        }
+      ],
+      "output": "/home/csy/share/test1/WiringOP/app/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libWiringOP.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-arm64-v8a": {
+      "cCompilerExecutable": "/home/csy/Android/Sdk/ndk/16.1.4479499/toolchains/llvm/prebuilt/linux-x86_64/bin/clang"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}
