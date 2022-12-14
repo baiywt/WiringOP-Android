@@ -1,4 +1,0 @@
-/home/csy/share/test1/WiringOP/app/src/main/jni/com_example_wiringop_SpiControl.c:89:49: warning: passing 'unsigned char *' to parameter of type 'jbyte *' (aka 'signed char *') converts between pointers to integer types with different sign [-Wpointer-sign]
-    (*env)->ReleaseByteArrayElements(env, data, cdata, 1);
-                                                ^~~~~
-1 warning generated.

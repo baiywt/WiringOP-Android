@@ -17,7 +17,7 @@
             android:id="@+id/i2c_addr_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0x10" />
+            android:text="0x38" />
         <Button
             android:id="@+id/setup_i2c_btn"
             android:layout_width="wrap_content"

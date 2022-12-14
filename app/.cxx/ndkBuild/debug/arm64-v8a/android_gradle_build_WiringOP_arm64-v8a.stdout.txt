@@ -1,5 +1,1 @@
-[arm64-v8a] Compile        : WiringOP <= com_example_wiringop_GPIOControl.c
-[arm64-v8a] Compile        : WiringOP <= com_example_wiringop_I2cControl.c
-[arm64-v8a] Compile        : WiringOP <= com_example_wiringop_SerialControl.c
-[arm64-v8a] Compile        : WiringOP <= com_example_wiringop_SpiControl.c
-[arm64-v8a] SharedLibrary  : libWiringOP.so
+make: Nothing to be done for `WiringOP'.

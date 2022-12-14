@@ -3,7 +3,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE:= libWiringOP
+LOCAL_MODULE := libWiringOP
 # All of the shared libraries we link against.
 LOCAL_SRC_FILES:= com_example_wiringop_GPIOControl.c \
                   com_example_wiringop_I2cControl.c \

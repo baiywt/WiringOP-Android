@@ -17,7 +17,7 @@
             android:id="@+id/spi_port_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0" />
+            android:text="1" />
         <TextView
             android:id="@+id/spi_speed"
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             android:id="@+id/spi_data0_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0x10" />
+            android:text="0x9f" />
         <TextView
             android:id="@+id/data1"
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             android:id="@+id/spi_data1_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0x10" />
+            android:text="0x09" />
 
     </LinearLayout>
     <LinearLayout
@@ -75,7 +75,7 @@
             android:id="@+id/spi_data2_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0x10" />
+            android:text="0x09" />
         <TextView
             android:id="@+id/data3"
             android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
             android:id="@+id/spi_data3_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0x10" />
+            android:text="0x09" />
 
     </LinearLayout>
 
