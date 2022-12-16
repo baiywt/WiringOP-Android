@@ -4,15 +4,28 @@ package com.example.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.wiringop.GPIOControl;
 
-public class TestGpio extends Activity{
+import java.util.HashMap;
+import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class TestGpio extends Activity implements CompoundButton.OnCheckedChangeListener{
 
     Button gpio_num_btn;
     TextView gpio_num_tv;
@@ -26,8 +39,52 @@ public class TestGpio extends Activity{
     EditText gpio_text;
 
     Handler handler;
-
+    Map<Integer, CheckBox> idToCb = new HashMap<Integer, CheckBox>();
+    Map<Integer, Integer> idToIndex = new HashMap<Integer, Integer>();
+    private static final int[] CHECKBOX_IDS = {
+            R.id.cb1, R.id.cb2, R.id.cb3, R.id.cb4, R.id.cb5,
+            R.id.cb6, R.id.cb7, R.id.cb8, R.id.cb9, R.id.cb10,
+            R.id.cb11, R.id.cb12, R.id.cb13, R.id.cb14, R.id.cb15,
+            R.id.cb16, R.id.cb17, R.id.cb18, R.id.cb19, R.id.cb20,
+            R.id.cb21, R.id.cb22, R.id.cb23, R.id.cb24, R.id.cb25,
+            R.id.cb26,
+    };
+    CharSequence physNames[] =
+            {
+                    "    3.3V", "5V      ",
+                    "   SDA.5", "5V      ",
+                    "   SCL.5", "GND     ",
+                    "   PWM15", "RXD.0   ",
+                    "     GND", "TXD.0   ",
+                    " CAN1_RX", "CAN2_TX ",
+                    " CAN1_TX", "GND     ",
+                    " CAN2_RX", "SDA.1   ",
+                    "    3.3V", "SCL.1   ",
+                    "SPI4_TXD", "GND     ",
+                    "SPI4_RXD", "GPIO2_D4",
+                    "SPI4_CLK", "SPI4_CS1",
+                    "     GND", "PWM1    ",
+            };
+    int physToGpio_5[] =
+            {
+                    -1,       // 0
+                    -1, -1,   // 1, 2
+                    47, -1,   // 3, 4
+                    46, -1,   // 5, 6
+                    54, 131,   // 7, 8
+                    -1, 132,   // 9, 10
+                    138, 29,   // 11, 12
+                    139, -1,   // 13, 14
+                    28, 59,   // 15, 16
+                    -1, 58,   // 17, 18
+                    49, -1,   // 19, 20
+                    48, 92,   // 21, 22
+                    50, 52,   // 23, 24
+                    -1, 35,   // 25, 26
+            };
     //GPIO8_A7
+    int pin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +107,20 @@ public class TestGpio extends Activity{
         read_gpio_btn.setOnClickListener(ocl);
         write_gpio_0_btn.setOnClickListener(ocl);
         write_gpio_1_btn.setOnClickListener(ocl);
+        for (int i = 0; i < CHECKBOX_IDS.length; i++) {
+            CheckBox cb = (CheckBox) findViewById(CHECKBOX_IDS[i]);
+            cb.setText(physNames[i]);
+            cb.setOnCheckedChangeListener(this);
+            if (physToGpio_5[i + 1] == -1)
+                cb.setEnabled(false);
 
+            idToIndex.put(CHECKBOX_IDS[i], i);
+            idToCb.put(CHECKBOX_IDS[i], cb);
+        }
+        System.out.println("aaaaaaaaaaaaaaaaaa!");
     }
 
-    OnClickListener ocl =new OnClickListener() {
+    OnClickListener ocl = new OnClickListener() {
 
         int pin;
         @Override
@@ -112,6 +179,40 @@ public class TestGpio extends Activity{
             }
         }
     };
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        Log.i("======Test======","======check :" + compoundButton.getId());
+        System.out.println("aaaaaaaaaaaaaaaaaa!");
+        int id = compoundButton.getId();
+        CheckBox cb = idToCb.get(id);
+        pin = physToGpio_5[idToIndex.get(id) + 1];
+        GPIOControl.doExport(pin);
+        if(cb.isEnabled())
+        {
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GPIOControl.pinMode(pin, 1);
+                    GPIOControl.digitalWrite(pin, 1);
+
+                }
+            }, 10);
+        }
+        else
+        {
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GPIOControl.pinMode(pin, 1);
+                    GPIOControl.digitalWrite(pin, 0);
+                }
+            }, 10);
+        }
+        GPIOControl.doUnexport(pin);
+    }
 
     public int gpioParse(String gpioStr) {
         if (gpioStr != null && gpioStr.length() == 8) {

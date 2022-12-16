@@ -10,26 +10,29 @@ import java.util.Arrays;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.wiringop.GPIOControl;
 import com.example.wiringop.SerialControl;
 
 public class TestSerialPort extends Activity{
     private static final String TAG = "TestSerial";
     private static final String SERIAL_PORT_PATH = "/dev/ttyS0";
-    private static final int SERIAL_PORT_BAUDRATE = 9600;
-
-    private static final String SEND_CMD="112233445566";
-
+    private static final int SERIAL_PORT_BAUDRATE = 115200;
 
     Button mOpenBtn;
     Button mCloseBtn;
     Button mSendMsgBtn;
-    TextView mInfoView;
+    TextView mInfoView, mInfoView1;
+    EditText et_serial_data;
+    Handler handler;
+    int Cnt = 0;
     int fd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,8 @@ public class TestSerialPort extends Activity{
         mCloseBtn = (Button)findViewById(R.id.close_serial_port);
         mSendMsgBtn = (Button)findViewById(R.id.send_msg);
         mInfoView = (TextView)findViewById(R.id.testinfo);
-
+        mInfoView1 = (TextView)findViewById(R.id.testinfo1);
+        et_serial_data = findViewById(R.id.et_serial_data);
         mOpenBtn.setOnClickListener(ocl);
         mCloseBtn.setOnClickListener(ocl);
         mSendMsgBtn.setOnClickListener(ocl);
@@ -48,23 +52,58 @@ public class TestSerialPort extends Activity{
 
     OnClickListener ocl = new OnClickListener() {
 
+
         @Override
         public void onClick(View arg0) {
             // TODO Auto-generated method stub
             switch (arg0.getId()) {
                 case R.id.open_serial_port:
                     mInfoView.setText("");
-                    mInfoView.append("开始打开串口\n");
+                    mInfoView1.setText("");
+                    //mInfoView.append("open serial\n");
                     fd = SerialControl.serialOpen(SERIAL_PORT_PATH, SERIAL_PORT_BAUDRATE);
-                    mInfoView.append(fd >= 0 ?"打开成功\n":"打开失败\n");
+                    if(fd > 0){
+                        mCloseBtn.setEnabled(true);
+                        mOpenBtn.setEnabled(false);
+                    }
+                    //mInfoView.append(fd >= 0 ?"open success\n":"open fail\n");
+                    //mInfoView1.append("aaaaa");
                     break;
                 case R.id.send_msg:
-                    mInfoView.append("\n发送CMD=112233445566\n");
-                    if(fd >=0 )SerialControl.serialPuts(fd, SEND_CMD);
+                    String msg = et_serial_data.getText().toString();
+                    mInfoView.append("send: " + msg + "\n");
+                    if(fd >=0 ) {
+                        SerialControl.serialPuts(fd, msg);
+                        handler = new Handler();
+                        String str;
+                        mInfoView1.append("receive： ");
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                int avail = SerialControl.serialDataAvail(fd);
+                                if(avail == -1)
+                                    return ;
+                                while(SerialControl.serialDataAvail(fd) > 0)
+                                {
+                                    int val = SerialControl.serialGetchar(fd);
+                                    String str = new StringBuffer().append((char)val).toString();
+                                    Log.i(TAG, "postDelayed... val = " + val + ", str = " + str);
+                                    mInfoView1.append(str);
+                                }
+                                //handler.postDelayed(this,50);
+                                mInfoView1.append("\n");
+                            }
+                        }, 800);
+                    }
                     break;
                 case R.id.close_serial_port:
-                    if(fd >= 0)
+                    if(fd >= 0) {
                         SerialControl.serialClose(fd);
+                        mCloseBtn.setEnabled(false);
+                        mOpenBtn.setEnabled(true);
+                        mInfoView.setText("");
+                        mInfoView1.setText("");
+                    }
                     fd = -1;
                     break;
                 default:

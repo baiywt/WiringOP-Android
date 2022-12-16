@@ -8,21 +8,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/spidev"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/spi_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SPI Channel："/>
+        <EditText
+            android:id="@+id/spi_channel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false" />
         <TextView
             android:id="@+id/spi_port"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SPI通道："/>
+            android:text="SPI Port："/>
         <EditText
             android:id="@+id/spi_port_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1" />
+            android:enabled="false" />
         <TextView
             android:id="@+id/spi_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SPI速率："/>
+            android:text="SPI Speed："/>
         <EditText
             android:id="@+id/spi_speed_text"
             android:layout_width="wrap_content"

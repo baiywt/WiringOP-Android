@@ -2,250 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-
-    <LinearLayout
+    <Button
+        android:id="@+id/gpio_test_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="GPIO_TEST" />
 
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_alignParentEnd="true"
-                android:id="@+id/cb25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                />
-        </RelativeLayout>
-    </LinearLayout>
-    <LinearLayout
+    <Button
+        android:id="@+id/serial_test_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <CheckBox
-            android:id="@+id/cb2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <CheckBox
-            android:id="@+id/cb26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
+        android:text="UART_TEST" />
+
+    <Button
+        android:id="@+id/i2c_test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I2C_TEST" />
+
+    <Button
+        android:id="@+id/spi_test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SPI_TEST" />
+    <Button
+        android:id="@+id/pwm_test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PWM_TEST" />
+
 </LinearLayout>
