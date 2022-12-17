@@ -14,9 +14,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wiringop.GPIOControl;
 import com.example.wiringop.SerialControl;
@@ -32,6 +36,9 @@ public class TestSerialPort extends Activity{
     TextView mInfoView, mInfoView1;
     EditText et_serial_data;
     Handler handler;
+    Spinner sn_uart_dev;
+    String uart_dev;
+    String [] uartString;
     int Cnt = 0;
     int fd;
     @Override
@@ -45,14 +52,29 @@ public class TestSerialPort extends Activity{
         mInfoView = (TextView)findViewById(R.id.testinfo);
         mInfoView1 = (TextView)findViewById(R.id.testinfo1);
         et_serial_data = findViewById(R.id.et_serial_data);
+        sn_uart_dev = findViewById(R.id.sn_uart_dev);
         mOpenBtn.setOnClickListener(ocl);
         mCloseBtn.setOnClickListener(ocl);
         mSendMsgBtn.setOnClickListener(ocl);
+
+        String uart = RootCmd.execRootCmd("ls /dev/ttyS*");
+        uartString = uart.split("\\s+");
+        ArrayAdapter<String> startAdapter = new ArrayAdapter<>(this,R.layout.item_dropdown,uartString);
+        sn_uart_dev.setAdapter(startAdapter);
+        sn_uart_dev.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                uart_dev = uartString[i];
+                RootCmd.execRootCmdSilent("chmod 666 " + uart_dev);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 
     OnClickListener ocl = new OnClickListener() {
-
-
         @Override
         public void onClick(View arg0) {
             // TODO Auto-generated method stub
@@ -61,11 +83,19 @@ public class TestSerialPort extends Activity{
                     mInfoView.setText("");
                     mInfoView1.setText("");
                     //mInfoView.append("open serial\n");
-                    fd = SerialControl.serialOpen(SERIAL_PORT_PATH, SERIAL_PORT_BAUDRATE);
+                    fd = SerialControl.serialOpen(uart_dev, SERIAL_PORT_BAUDRATE);
                     if(fd > 0){
                         mCloseBtn.setEnabled(true);
                         mOpenBtn.setEnabled(false);
+                        Toast toast=Toast.makeText(getApplicationContext(), "Open Success", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
+                    else
+                    {
+                        Toast toast=Toast.makeText(getApplicationContext(), "Open Fail", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                     //mInfoView.append(fd >= 0 ?"open success\n":"open fail\n");
                     //mInfoView1.append("aaaaa");
                     break;
@@ -93,7 +123,7 @@ public class TestSerialPort extends Activity{
                                 //handler.postDelayed(this,50);
                                 mInfoView1.append("\n");
                             }
-                        }, 800);
+                        }, 500);
                     }
                     break;
                 case R.id.close_serial_port:

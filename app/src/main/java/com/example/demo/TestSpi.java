@@ -128,7 +128,7 @@ public class TestSpi extends Activity {
                                 e.printStackTrace();
                             }
 
-                            testinfo.setText("SPI传输成功"+"ret:"+ret+", data[0]:"+ Integer.toHexString(data[0] & 0xff) +", data[1]:"+Integer.toHexString(data[1] & 0xff)+", data[2]:"+Integer.toHexString(data[2] & 0xff)+", data[3]:"+Integer.toHexString(data[3] & 0xff));
+                            testinfo.setText("SPI传输成功"+"\nret:"+ret+"\n, data[0]:"+ Integer.toHexString(data[0] & 0xff) +"\ndata[1]:"+Integer.toHexString(data[1] & 0xff)+", data[2]:"+Integer.toHexString(data[2] & 0xff)+", data[3]:"+Integer.toHexString(data[3] & 0xff));
 
                         }
                     }

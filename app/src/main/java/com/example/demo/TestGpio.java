@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wiringop.GPIOControl;
 
@@ -82,9 +83,10 @@ public class TestGpio extends Activity implements CompoundButton.OnCheckedChange
                     50, 52,   // 23, 24
                     -1, 35,   // 25, 26
             };
-    //GPIO8_A7
-    int pin;
 
+    int pin;
+    CheckBox cb_gpio;
+    Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +119,6 @@ public class TestGpio extends Activity implements CompoundButton.OnCheckedChange
             idToIndex.put(CHECKBOX_IDS[i], i);
             idToCb.put(CHECKBOX_IDS[i], cb);
         }
-        System.out.println("aaaaaaaaaaaaaaaaaa!");
     }
 
     OnClickListener ocl = new OnClickListener() {
@@ -154,7 +155,7 @@ public class TestGpio extends Activity implements CompoundButton.OnCheckedChange
                         @Override
                         public void run() {
                             GPIOControl.pinMode(pin, 1);
-                            write_gpio_tv.setText(GPIOControl.digitalWrite(pin, 0) == 0 ? "写入失败" : "写入成功");
+                            write_gpio_tv.setText(GPIOControl.digitalWrite(pin, 0) == -1 ? "写入失败" : "写入成功");
                             GPIOControl.doUnexport(pin);
                         }
                     }, 10);
@@ -168,7 +169,7 @@ public class TestGpio extends Activity implements CompoundButton.OnCheckedChange
                         @Override
                         public void run() {
                             GPIOControl.pinMode(pin, 1);
-                            write_gpio_tv.setText(GPIOControl.digitalWrite(pin, 1) == 0 ? "写入失败" : "写入成功");
+                            write_gpio_tv.setText(GPIOControl.digitalWrite(pin, 1) == -1 ? "写入失败" : "写入成功");
                             GPIOControl.doUnexport(pin);
                         }
                     }, 10);
@@ -182,36 +183,56 @@ public class TestGpio extends Activity implements CompoundButton.OnCheckedChange
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        Log.i("======Test======","======check :" + compoundButton.getId());
-        System.out.println("aaaaaaaaaaaaaaaaaa!");
         int id = compoundButton.getId();
-        CheckBox cb = idToCb.get(id);
+        cb_gpio = idToCb.get(id);
         pin = physToGpio_5[idToIndex.get(id) + 1];
         GPIOControl.doExport(pin);
-        if(cb.isEnabled())
+        if(cb_gpio.isChecked())
         {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     GPIOControl.pinMode(pin, 1);
-                    GPIOControl.digitalWrite(pin, 1);
-
+                    if(-1 == GPIOControl.digitalWrite(pin, 1))
+                    {
+                        cb_gpio.setChecked(false);
+                        toast=Toast.makeText(getApplicationContext(), "digitalWrite fail", Toast.LENGTH_SHORT);
+                    }
+                    else {
+                        if(1 == GPIOControl.digitalRead(pin))
+                            toast = Toast.makeText(getApplicationContext(), "digitalWrite " + pin + " to high", Toast.LENGTH_SHORT);
+                        else {
+                            toast = Toast.makeText(getApplicationContext(), "write high fail", Toast.LENGTH_SHORT);
+                            cb_gpio.setChecked(false);
+                        }
+                    }
+                    toast.show();
+                    GPIOControl.doUnexport(pin);
                 }
             }, 10);
         }
-        else
-        {
+        else {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     GPIOControl.pinMode(pin, 1);
-                    GPIOControl.digitalWrite(pin, 0);
+                    if(-1 == GPIOControl.digitalWrite(pin, 0)) {
+                        toast=Toast.makeText(getApplicationContext(), "digitalWrite fail", Toast.LENGTH_SHORT);
+                    }
+                    else {
+                        if(0 == GPIOControl.digitalRead(pin))
+                            toast = Toast.makeText(getApplicationContext(), "digitalWrite " + pin + " to low", Toast.LENGTH_SHORT);
+                        else {
+                            toast = Toast.makeText(getApplicationContext(), "write low fail", Toast.LENGTH_SHORT);
+                        }
+                    }
+                    toast.show();
+                    GPIOControl.doUnexport(pin);
                 }
             }, 10);
         }
-        GPIOControl.doUnexport(pin);
     }
 
     public int gpioParse(String gpioStr) {

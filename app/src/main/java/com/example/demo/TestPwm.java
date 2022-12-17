@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -30,6 +32,11 @@ public class TestPwm extends Activity {
     private CheckBox cb_pwm_en;
     private ToggleButton bt_pwm;
     private Spinner sp_pwm;
+    private EditText pwm_controler;
+    private TextView tv_duty1;
+    String [] pwmString;
+    String pwm_dev;
+    private TextView tv_pwm_duty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,38 +45,59 @@ public class TestPwm extends Activity {
         sb_pwm_duty = findViewById(R.id.sb_pwm_duty);
         cb_pwm_en = findViewById(R.id.cb_pwm_en);
         bt_pwm = findViewById(R.id.btn_pwm);
+        sp_pwm = findViewById(R.id.sp_pwm);
+        pwm_controler =findViewById(R.id.pwm_controler);
+        tv_duty1 = findViewById(R.id.tv_duty1);
+
         cb_pwm_en.setEnabled(false);
         sb_pwm_duty.setEnabled(false);
+        String pwm = RootCmd.execRootCmd("ls /sys/class/pwm");
+        pwmString = pwm.split("\\s+");
+        ArrayAdapter<String> startAdapter = new ArrayAdapter<>(this,R.layout.item_dropdown,pwmString);
+        sp_pwm.setAdapter(startAdapter);
+        sp_pwm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                pwm_dev = pwmString[i];
+                String pwm_con = RootCmd.execRootCmd("ls -ld /sys/class/pwm/" + pwm_dev + "/device|awk '{print $NF}' |xargs basename");
+                pwm_controler.setText(pwm_con);
+                tv_duty1.setText(pwm_dev + " Duty");
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                pwm_dev = pwmString[0];
+            }
+        });
         bt_pwm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     sb_pwm_duty.setEnabled(false);
                     cb_pwm_en.setEnabled(false);
-                    RootCmd.execRootCmdSilent("echo 0 >  /sys/class/pwm/pwmchip0/unexport");
+                    RootCmd.execRootCmdSilent("echo 0 >  /sys/class/pwm/"+ pwm_dev + "/unexport");
                 } else {
                     sb_pwm_duty.setEnabled(true);
                     cb_pwm_en.setEnabled(true);
                     sb_pwm_duty.setMax(Integer.parseInt(et_pwm_period.getText().toString()));
-                    RootCmd.execRootCmdSilent("echo 0 >  /sys/class/pwm/pwmchip0/export");
+                    RootCmd.execRootCmdSilent("echo 0 >  /sys/class/pwm/"+ pwm_dev + "/export");
                 }
             }
         });
         cb_pwm_en.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    //BufferedWriter bw = new BufferedWriter(new FileWriter("/sys/class/pwm/pwmchip0/pwm0/enable"));
-                    Log.i(TAG, "cccccccccccccccccccccccccccccccccc");
                     if (b) {
-                        RootCmd.execRootCmdSilent("echo 1 >  /sys/class/pwm/pwmchip0/pwm0/enable");
-                        String str = RootCmd.execRootCmd("cat /sys/class/pwm/pwmchip0/pwm0/enable");
-                        if(! "1".equals(str)) {
+                        RootCmd.execRootCmdSilent("echo 1 >  /sys/class/pwm/" + pwm_dev + "/pwm0/enable");
+                        String str = RootCmd.execRootCmd("cat /sys/class/pwm/" + pwm_dev + "/pwm0/enable");
+                        Log.i(TAG, "str = " + str);
+                        if(! "1 ".equals(str)) {
+                            Log.i(TAG, "straaa = " + str);
                             cb_pwm_en.setChecked(false);
                         }
                     }
                     else {
-                        RootCmd.execRootCmdSilent("echo 0 >  /sys/class/pwm/pwmchip0/pwm0/enable");
+                        RootCmd.execRootCmdSilent("echo 0 >  /sys/class/pwm/" + pwm_dev + "/pwm0/enable");
                     }
             }
         });
@@ -85,7 +113,7 @@ public class TestPwm extends Activity {
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 System.out.println("onStartTrackingTouch");
-                String cmd = "echo " + seekBar.getMax() + " > /sys/class/pwm/pwmchip0/pwm0/period";
+                String cmd = "echo " + seekBar.getMax() + " > /sys/class/pwm/" + pwm_dev + "/pwm0/period";
                 RootCmd.execRootCmdSilent(cmd);
                 System.out.println("onStartTrackingTouch end");
             }
@@ -93,7 +121,7 @@ public class TestPwm extends Activity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 System.out.println("onStopTrackingTouch");
-                String cmd = "echo " + duty + " > /sys/class/pwm/pwmchip0/pwm0/duty_cycle";
+                String cmd = "echo " + duty + " > /sys/class/pwm/" + pwm_dev + "/pwm0/duty_cycle";
                 RootCmd.execRootCmdSilent(cmd);
             }
         });
