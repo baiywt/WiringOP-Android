@@ -14,8 +14,8 @@ LOCAL_CERTIFICATE:=platform
 LOCAL_PRIVATE_PLATFORM_APIS := true
 
 #LOCAL_CFLAGS := -lWiringOP
-#LOCAL_JNI_SHARED_LIBRARIES := libWiringOP libwiringOP
-#LOCAL_REQUIRED_MODULES := libWiringOP libwiringOP
+LOCAL_JNI_SHARED_LIBRARIES := libWiringOP
+LOCAL_REQUIRED_MODULES := libWiringOP
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
         androidx.appcompat_appcompat \
