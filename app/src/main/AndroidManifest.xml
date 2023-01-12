@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.demo.TestGpio">  </activity>
+        <activity android:name="com.example.demo.TestSerialPort">  </activity>
+        <activity android:name="com.example.demo.TestI2c">  </activity>
+        <activity android:name="com.example.demo.TestSpi">  </activity>
+        <activity android:name="com.example.demo.TestPwm">  </activity>
     </application>
 
 </manifest>
