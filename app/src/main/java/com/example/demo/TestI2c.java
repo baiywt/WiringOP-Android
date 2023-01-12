@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.wiringop.wpiControl;
 
-public class TestI2c extends Activity {
+public class TestI2c extends AppCompatActivity {
     private static final String TAG = "TestI2c";
     EditText i2c_addr_text;
     EditText i2c_reg_text;
