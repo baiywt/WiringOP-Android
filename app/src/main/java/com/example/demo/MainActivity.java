@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         i2c_test_btn.setOnClickListener(ocl);
         spi_test_btn.setOnClickListener(ocl);
         pwm_test_btn.setOnClickListener(ocl);
-        wpiControl.wiringPiSetup();
-	wpiControl.pinMode(28, 1);
+
     }
 	    View.OnClickListener ocl =new View.OnClickListener() {
         Intent intent;

@@ -43,7 +43,7 @@
             android:id="@+id/scroller"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            >
+            android:background="@color/colorPrimaryDark">
 
             <TextView
                 android:id="@+id/testinfo"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="hello world!"
-            />
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/send_msg"
             android:layout_width="match_parent"

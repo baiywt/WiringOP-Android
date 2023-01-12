@@ -19,6 +19,7 @@ LOCAL_REQUIRED_MODULES := libWiringOP
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
         androidx.appcompat_appcompat \
+        com.google.android.material_material
 
 LOCAL_DEX_PREOPT := false
 
