@@ -104,9 +104,10 @@ public class TestI2c extends AppCompatActivity {
                     if(fd >= 0) {
 
                         reg = Integer.valueOf(i2c_reg_text.getText().toString().substring(2),16);
-                        int ret = wpiControl.wiringPiI2CWriteReg8(fd, i2c_addr, reg);
-                        int value = wpiControl.wiringPiI2CReadReg8(fd, i2c_addr);
-                        if(value == reg)
+                        int value = Integer.valueOf(i2c_value_text.getText().toString().substring(2),16);
+                        wpiControl.wiringPiI2CWriteReg8(fd, reg, value);
+                        int ret = wpiControl.wiringPiI2CReadReg8(fd, reg);
+                        if(ret == value)
                             write_i2c_tv.setText("write success");
                         else
                             write_i2c_tv.setText("write fail");
